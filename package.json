@@ -1,16 +1,16 @@
 {
-  "name": "discord-server-setup-bot",
+  "name": "discord-reset-calls",
   "version": "1.0.0",
-  "description": "Script de automação para configuração de servidor Discord",
-  "main": "index.js",
+  "description": "Bot para resetar canais de voz do Discord",
+  "main": "setup.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node setup.js"
+  },
+  "engines": {
+    "node": ">=18"
   },
   "dependencies": {
-    "discord.js": "^14.16.3",
-    "dotenv": "^16.4.5"
-  },
-  "keywords": ["discord", "bot", "setup", "automation"],
-  "author": "",
-  "license": "MIT"
+    "discord.js": "^14.24.2",
+    "dotenv": "^16.6.1"
+  }
 }
