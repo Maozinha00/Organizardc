@@ -1,4 +1,3 @@
-```js
 /**
  * ============================================================
  * RAFINHA DISCORD — CONFIGURAÇÃO AUTOMÁTICA
@@ -140,195 +139,52 @@ function getRole(guild, name) {
 }
 
 // ============================================================
-// PERMISSÕES BASE
-// ============================================================
-
-function everyoneDeny() {
-  return {
-    id: 'EVERYONE',
-    deny: [
-      PermissionsBitField.Flags.SendMessages
-    ]
-  };
-}
-
-// ============================================================
 // ESTRUTURA DO SERVIDOR
 // ============================================================
 
 const STRUCTURE = [
-
-  // ==========================================================
-  // INFORMAÇÕES
-  // ==========================================================
-
   {
     category: '🛡️ | INFO & REGRAS',
-
     channels: [
-
-      {
-        name: '📜│regras',
-        type: ChannelType.GuildText,
-        readOnly: true
-      },
-
-      {
-        name: '📢│avisos',
-        type: ChannelType.GuildAnnouncement,
-        readOnly: true
-      },
-
-      {
-        name: '🔗│redes-sociais',
-        type: ChannelType.GuildText,
-        readOnly: true
-      },
-
-      {
-        name: '🎭│cargos-vips',
-        type: ChannelType.GuildText,
-        readOnly: true
-      }
-
+      { name: '📜│regras', type: ChannelType.GuildText, readOnly: true },
+      { name: '📢│avisos', type: ChannelType.GuildAnnouncement, readOnly: true },
+      { name: '🔗│redes-sociais', type: ChannelType.GuildText, readOnly: true },
+      { name: '🎭│cargos-vips', type: ChannelType.GuildText, readOnly: true }
     ]
   },
-
-  // ==========================================================
-  // RAFINHA LIVE
-  // ==========================================================
-
   {
     category: '🎥 | RAFINHA LIVE',
-
     channels: [
-
-      {
-        name: '🔴│live-on',
-        type: ChannelType.GuildAnnouncement,
-        readOnly: true
-      },
-
-      {
-        name: '📅│agenda',
-        type: ChannelType.GuildText,
-        readOnly: true
-      },
-
-      {
-        name: '🎬│clipes',
-        type: ChannelType.GuildText,
-        readOnly: false
-      }
-
+      { name: '🔴│live-on', type: ChannelType.GuildAnnouncement, readOnly: true },
+      { name: '📅│agenda', type: ChannelType.GuildText, readOnly: true },
+      { name: '🎬│clipes', type: ChannelType.GuildText, readOnly: false }
     ]
   },
-
-  // ==========================================================
-  // COMUNIDADE
-  // ==========================================================
-
   {
     category: '💬 | COMUNIDADE',
-
     channels: [
-
-      {
-        name: '💬│chat-geral',
-        type: ChannelType.GuildText,
-        readOnly: false
-      },
-
-      {
-        name: '🔥│memes',
-        type: ChannelType.GuildText,
-        readOnly: false
-      },
-
-      {
-        name: '📸│mídia',
-        type: ChannelType.GuildText,
-        readOnly: false
-      },
-
-      {
-        name: '🤖│comandos',
-        type: ChannelType.GuildText,
-        readOnly: false
-      }
-
+      { name: '💬│chat-geral', type: ChannelType.GuildText, readOnly: false },
+      { name: '🔥│memes', type: ChannelType.GuildText, readOnly: false },
+      { name: '📸│mídia', type: ChannelType.GuildText, readOnly: false },
+      { name: '🤖│comandos', type: ChannelType.GuildText, readOnly: false }
     ]
   },
-
-  // ==========================================================
-  // GAMING
-  // ==========================================================
-
   {
     category: '🎮 | GAMING',
-
     channels: [
-
-      {
-        name: '🎮│procurar-duo',
-        type: ChannelType.GuildText,
-        readOnly: false
-      },
-
-      {
-        name: '🏆│torneios',
-        type: ChannelType.GuildText,
-        readOnly: false
-      },
-
-      {
-        name: '🌀│outros-jogos',
-        type: ChannelType.GuildText,
-        readOnly: false
-      }
-
+      { name: '🎮│procurar-duo', type: ChannelType.GuildText, readOnly: false },
+      { name: '🏆│torneios', type: ChannelType.GuildText, readOnly: false },
+      { name: '🌀│outros-jogos', type: ChannelType.GuildText, readOnly: false }
     ]
   },
-
-  // ==========================================================
-  // VOZ
-  // ==========================================================
-
   {
     category: '🔊 | CANAIS DE VOZ',
-
     channels: [
-
-      {
-        name: '🔊│Resenha',
-        type: ChannelType.GuildVoice,
-        userLimit: 20
-      },
-
-      {
-        name: '🎮│Duo 1',
-        type: ChannelType.GuildVoice,
-        userLimit: 2
-      },
-
-      {
-        name: '🎮│Squad 1',
-        type: ChannelType.GuildVoice,
-        userLimit: 4
-      },
-
-      {
-        name: '🎧│Lofi & Chill',
-        type: ChannelType.GuildVoice,
-        userLimit: 15
-      },
-
-      {
-        name: '💤│AFK',
-        type: ChannelType.GuildVoice,
-        userLimit: 99
-      }
-
+      { name: '🔊│Resenha', type: ChannelType.GuildVoice, userLimit: 20 },
+      { name: '🎮│Duo 1', type: ChannelType.GuildVoice, userLimit: 2 },
+      { name: '🎮│Squad 1', type: ChannelType.GuildVoice, userLimit: 4 },
+      { name: '🎧│Lofi & Chill', type: ChannelType.GuildVoice, userLimit: 15 },
+      { name: '💤│AFK', type: ChannelType.GuildVoice, userLimit: 99 }
     ]
   }
 ];
@@ -338,9 +194,7 @@ const STRUCTURE = [
 // ============================================================
 
 function buildPermissions(guild, channelName, readOnly) {
-
   const overwrites = [];
-
   const everyone = guild.roles.everyone;
 
   const streamer = getRole(guild, ROLE_NAMES.STREAMER);
@@ -351,29 +205,16 @@ function buildPermissions(guild, channelName, readOnly) {
   const membro = getRole(guild, ROLE_NAMES.MEMBRO);
   const seguidor = getRole(guild, ROLE_NAMES.SEGUIDOR);
 
-  // ==========================================================
-  // @EVERYONE
-  // ==========================================================
-
   let everyonePermissions = {
     id: everyone.id,
-    allow: [
-      PermissionsBitField.Flags.ViewChannel
-    ]
+    allow: [PermissionsBitField.Flags.ViewChannel]
   };
 
-  // Canais somente leitura
   if (readOnly) {
-    everyonePermissions.deny = [
-      PermissionsBitField.Flags.SendMessages
-    ];
+    everyonePermissions.deny = [PermissionsBitField.Flags.SendMessages];
   }
 
   overwrites.push(everyonePermissions);
-
-  // ==========================================================
-  // STREAMER
-  // ==========================================================
 
   if (streamer) {
     overwrites.push({
@@ -390,10 +231,6 @@ function buildPermissions(guild, channelName, readOnly) {
     });
   }
 
-  // ==========================================================
-  // MODERADOR
-  // ==========================================================
-
   if (moderator) {
     overwrites.push({
       id: moderator.id,
@@ -409,32 +246,20 @@ function buildPermissions(guild, channelName, readOnly) {
     });
   }
 
-  // ==========================================================
-  // EDITOR
-  // ==========================================================
-
   if (editor) {
-
-    const editorPermissions = [
-      PermissionsBitField.Flags.ViewChannel,
-      PermissionsBitField.Flags.ReadMessageHistory,
-      PermissionsBitField.Flags.SendMessages,
-      PermissionsBitField.Flags.AttachFiles,
-      PermissionsBitField.Flags.EmbedLinks
-    ];
-
     overwrites.push({
       id: editor.id,
-      allow: editorPermissions
+      allow: [
+        PermissionsBitField.Flags.ViewChannel,
+        PermissionsBitField.Flags.ReadMessageHistory,
+        PermissionsBitField.Flags.SendMessages,
+        PermissionsBitField.Flags.AttachFiles,
+        PermissionsBitField.Flags.EmbedLinks
+      ]
     });
   }
 
-  // ==========================================================
-  // SUB
-  // ==========================================================
-
   if (sub) {
-
     overwrites.push({
       id: sub.id,
       allow: [
@@ -447,12 +272,7 @@ function buildPermissions(guild, channelName, readOnly) {
     });
   }
 
-  // ==========================================================
-  // BOOSTER
-  // ==========================================================
-
   if (booster) {
-
     overwrites.push({
       id: booster.id,
       allow: [
@@ -465,12 +285,7 @@ function buildPermissions(guild, channelName, readOnly) {
     });
   }
 
-  // ==========================================================
-  // MEMBRO ATIVO
-  // ==========================================================
-
   if (membro) {
-
     overwrites.push({
       id: membro.id,
       allow: [
@@ -483,12 +298,7 @@ function buildPermissions(guild, channelName, readOnly) {
     });
   }
 
-  // ==========================================================
-  // SEGUIDOR
-  // ==========================================================
-
   if (seguidor) {
-
     overwrites.push({
       id: seguidor.id,
       allow: [
@@ -498,11 +308,6 @@ function buildPermissions(guild, channelName, readOnly) {
       ]
     });
   }
-
-  // ==========================================================
-  // REGRAS / AVISOS / REDES / CARGOS
-  // NINGUÉM ESCREVE
-  // ==========================================================
 
   const restrictedChannels = [
     '📜│regras',
@@ -514,63 +319,17 @@ function buildPermissions(guild, channelName, readOnly) {
   ];
 
   if (restrictedChannels.includes(channelName)) {
-
-    // @everyone não pode enviar
     overwrites.push({
       id: everyone.id,
-      deny: [
-        PermissionsBitField.Flags.SendMessages
-      ]
+      deny: [PermissionsBitField.Flags.SendMessages]
     });
 
-    // Membros comuns não podem enviar
-    if (membro) {
-      overwrites.push({
-        id: membro.id,
-        deny: [
-          PermissionsBitField.Flags.SendMessages
-        ]
-      });
-    }
+    if (membro) overwrites.push({ id: membro.id, deny: [PermissionsBitField.Flags.SendMessages] });
+    if (seguidor) overwrites.push({ id: seguidor.id, deny: [PermissionsBitField.Flags.SendMessages] });
+    if (booster) overwrites.push({ id: booster.id, deny: [PermissionsBitField.Flags.SendMessages] });
+    if (sub) overwrites.push({ id: sub.id, deny: [PermissionsBitField.Flags.SendMessages] });
+    if (editor) overwrites.push({ id: editor.id, deny: [PermissionsBitField.Flags.SendMessages] });
 
-    if (seguidor) {
-      overwrites.push({
-        id: seguidor.id,
-        deny: [
-          PermissionsBitField.Flags.SendMessages
-        ]
-      });
-    }
-
-    if (booster) {
-      overwrites.push({
-        id: booster.id,
-        deny: [
-          PermissionsBitField.Flags.SendMessages
-        ]
-      });
-    }
-
-    if (sub) {
-      overwrites.push({
-        id: sub.id,
-        deny: [
-          PermissionsBitField.Flags.SendMessages
-        ]
-      });
-    }
-
-    // EDITOR também não publica nesses canais
-    if (editor) {
-      overwrites.push({
-        id: editor.id,
-        deny: [
-          PermissionsBitField.Flags.SendMessages
-        ]
-      });
-    }
-
-    // MOD pode escrever
     if (moderator) {
       overwrites.push({
         id: moderator.id,
@@ -582,7 +341,6 @@ function buildPermissions(guild, channelName, readOnly) {
       });
     }
 
-    // STREAMER pode escrever
     if (streamer) {
       overwrites.push({
         id: streamer.id,
@@ -604,7 +362,6 @@ function buildPermissions(guild, channelName, readOnly) {
 // ============================================================
 
 client.once('ready', async () => {
-
   console.log('');
   console.log('==============================================');
   console.log('🔥 RAFINHA DISCORD SETUP');
@@ -614,196 +371,105 @@ client.once('ready', async () => {
   const guild = client.guilds.cache.get(process.env.GUILD_ID);
 
   if (!guild) {
-
     console.error('');
     console.error('❌ SERVIDOR NÃO ENCONTRADO!');
     console.error('Confira o GUILD_ID no arquivo .env');
-
     process.exit(1);
   }
 
   console.log(`🏠 Servidor: ${guild.name}`);
   console.log('');
 
-  // ==========================================================
   // 1 — APAGAR CANAIS
-  // ==========================================================
-
   console.log('🗑️ Apagando canais antigos...');
-
   const channels = await guild.channels.fetch();
-
   for (const channel of channels.values()) {
-
     if (!channel) continue;
-
     try {
-
       await channel.delete();
-
       console.log(`   ❌ Apagado: ${channel.name}`);
-
     } catch (error) {
-
       console.log(`   ⚠️ Não foi possível apagar: ${channel.name}`);
     }
   }
 
-  // ==========================================================
   // 2 — CRIAR CARGOS
-  // ==========================================================
-
   console.log('');
   console.log('👑 Criando/configurando cargos...');
-
-  const createdRoles = {};
-
   for (const roleConfig of ROLES_TO_CREATE) {
-
-    let role = guild.roles.cache.find(
-      r => r.name === roleConfig.name
-    );
-
+    let role = guild.roles.cache.find(r => r.name === roleConfig.name);
     try {
-
       if (!role) {
-
         role = await guild.roles.create({
           name: roleConfig.name,
           color: roleConfig.color,
           hoist: roleConfig.hoist,
           mentionable: roleConfig.mentionable,
           permissions: roleConfig.permissions || [],
-          reason: 'Configuração automática do servidor Rafinha'
+          reason: 'Configuração automática do servidor RAFINHA'
         });
-
         console.log(`   ✅ Criado: ${role.name}`);
-
       } else {
-
         await role.edit({
           color: roleConfig.color,
           hoist: roleConfig.hoist,
           mentionable: roleConfig.mentionable,
           permissions: roleConfig.permissions || []
         });
-
         console.log(`   🔄 Atualizado: ${role.name}`);
       }
-
-      createdRoles[roleConfig.name] = role;
-
     } catch (error) {
-
-      console.error(
-        `   ❌ Erro no cargo ${roleConfig.name}:`,
-        error.message
-      );
+      console.error(`   ❌ Erro no cargo ${roleConfig.name}:`, error.message);
     }
   }
 
-  // Atualizar cache
   await guild.roles.fetch();
 
-  // ==========================================================
   // 3 — CRIAR CATEGORIAS E CANAIS
-  // ==========================================================
-
   console.log('');
   console.log('📁 Criando estrutura...');
 
   for (const section of STRUCTURE) {
-
     try {
-
-      // ------------------------------------------------------
-      // CATEGORIA
-      // ------------------------------------------------------
-
       const category = await guild.channels.create({
-
         name: section.category,
-
         type: ChannelType.GuildCategory,
-
-        reason: 'Configuração automática do servidor Rafinha'
-
+        reason: 'Configuração automática do servidor RAFINHA'
       });
 
       console.log('');
       console.log(`📂 ${section.category}`);
 
-      // ------------------------------------------------------
-      // CANAIS
-      // ------------------------------------------------------
-
       for (const channelConfig of section.channels) {
-
         try {
-
-          const permissions = buildPermissions(
-            guild,
-            channelConfig.name,
-            channelConfig.readOnly
-          );
-
+          const permissions = buildPermissions(guild, channelConfig.name, channelConfig.readOnly);
           const channelData = {
-
             name: channelConfig.name,
-
             type: channelConfig.type,
-
             parent: category.id,
-
             permissionOverwrites: permissions,
-
-            reason: 'Configuração automática do servidor Rafinha'
-
+            reason: 'Configuração automática do servidor RAFINHA'
           };
 
-          if (
-            channelConfig.type === ChannelType.GuildVoice &&
-            channelConfig.userLimit
-          ) {
-
-            channelData.userLimit =
-              channelConfig.userLimit;
+          if (channelConfig.type === ChannelType.GuildVoice && channelConfig.userLimit) {
+            channelData.userLimit = channelConfig.userLimit;
           }
 
-          const channel =
-            await guild.channels.create(channelData);
-
-          console.log(
-            `   ✅ ${channel.name}`
-          );
-
+          const channel = await guild.channels.create(channelData);
+          console.log(`   ✅ ${channel.name}`);
         } catch (error) {
-
-          console.error(
-            `   ❌ Erro ao criar ${channelConfig.name}:`,
-            error.message
-          );
+          console.error(`   ❌ Erro ao criar ${channelConfig.name}:`, error.message);
         }
       }
-
     } catch (error) {
-
-      console.error(
-        `❌ Erro na categoria ${section.category}:`,
-        error.message
-      );
+      console.error(`❌ Erro na categoria ${section.category}:`, error.message);
     }
   }
-
-  // ==========================================================
-  // FINAL
-  // ==========================================================
 
   console.log('');
   console.log('==============================================');
   console.log('🎉 CONFIGURAÇÃO CONCLUÍDA!');
   console.log('==============================================');
-  console.log('');
   console.log('👑 STREAMER: RAFINHA');
   console.log('🛡️ MODERADOR configurado');
   console.log('🎬 EDITOR configurado');
@@ -818,10 +484,6 @@ client.once('ready', async () => {
   process.exit(0);
 });
 
-// ============================================================
-// ERROS
-// ============================================================
-
 process.on('unhandledRejection', error => {
   console.error('❌ Erro não tratado:', error);
 });
@@ -830,9 +492,4 @@ process.on('uncaughtException', error => {
   console.error('❌ Exceção não tratada:', error);
 });
 
-// ============================================================
-// LOGIN
-// ============================================================
-
 client.login(process.env.DISCORD_TOKEN);
-```
