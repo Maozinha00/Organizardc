@@ -1,16 +1,13 @@
 {
-  "name": "discord-reset-calls",
+  "name": "discord-voice-reset",
   "version": "1.0.0",
-  "description": "Bot para resetar canais de voz do Discord",
+  "description": "Script de reset de canais de voz do Discord",
   "main": "setup.js",
   "scripts": {
     "start": "node setup.js"
   },
-  "engines": {
-    "node": ">=18"
-  },
   "dependencies": {
-    "discord.js": "^14.24.2",
-    "dotenv": "^16.6.1"
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5"
   }
 }
