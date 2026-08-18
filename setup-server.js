@@ -1,7 +1,7 @@
 /**
- * SCRIPT DE CRIAÇÃO AUTOMÁTICA DO SERVIDOR DO RAFINHA
- * Execução: node setup-server.js
- * Cria automaticamente as 5 categorias, 16 canais e 7 cargos com cores exatas!
+ * SCRIPT COM WIPE (APAGA TUDO E RECbackgroundRIA)
+ * Execução: node setup-server-wipe.js
+ * ATENÇÃO: Irá deletar todos os canais e categorias existentes antes de recriar!
  */
 const { Client, GatewayIntentBits, ChannelType, PermissionsBitField } = require('discord.js');
 require('dotenv').config();
@@ -10,6 +10,7 @@ const client = new Client({
   intents: [GatewayIntentBits.Guilds]
 });
 
+// DEFINIÇÃO DOS CARGOS COM CORES DO RAFINHA
 const ROLES_TO_CREATE = [
   { name: '👑 | STREMER', color: '#FF4655', hoist: true, mentionable: true, permissions: [PermissionsBitField.Flags.Administrator] },
   { name: '🛡️ | MODERADOR', color: '#1E3A8A', hoist: true, mentionable: true, permissions: [PermissionsBitField.Flags.ManageMessages, PermissionsBitField.Flags.KickMembers, PermissionsBitField.Flags.BanMembers, PermissionsBitField.Flags.MuteMembers] },
@@ -20,6 +21,7 @@ const ROLES_TO_CREATE = [
   { name: '👤 | SEGUIDOR', color: '#94A3B8', hoist: false, mentionable: false },
 ];
 
+// ESTRUTURA OFICIAL DE CANAIS
 const STRUCTURE = [
   {
     category: '🛡️ | INFO & REGRAS',
@@ -71,14 +73,32 @@ client.once('ready', async () => {
   console.log(`🤖 Logado como ${client.user.tag}`);
   const guild = client.guilds.cache.get(process.env.GUILD_ID);
   if (!guild) {
-    console.error('❌ Servidor não encontrado! Verifique o GUILD_ID no arquivo .env');
+    console.error('❌ Servidor não encontrado! Verifique a variável GUILD_ID no .env');
     process.exit(1);
   }
 
-  console.log(`⚙️ Configurando servidor: ${guild.name}...`);
+  console.log(`⚠️ ATENÇÃO: Iniciando limpeza e reestruturação do servidor: ${guild.name}`);
 
-  // 1. Criar Cargos
-  console.log('📌 Criando Cargos...');
+  // ==========================================
+  // PASSO 1: APAGAR TODOS OS CANAIS ANTIGOS
+  // ==========================================
+  console.log('🗑️ Apagando todos os canais e categorias existentes...');
+  const currentChannels = await guild.channels.fetch();
+  for (const [, ch] of currentChannels) {
+    try {
+      if (ch) {
+        await ch.delete();
+        console.log(`  ❌ Canal/Categoria deletado: ${ch.name}`);
+      }
+    } catch (err) {
+      console.warn(`  ⚠️ Não foi possível apagar ${ch?.name}: ${err.message}`);
+    }
+  }
+
+  // ==========================================
+  // PASSO 2: CRIAR CARGOS
+  // ==========================================
+  console.log('👑 Criando Cargos da Hierarquia...');
   for (const roleData of ROLES_TO_CREATE) {
     const existing = guild.roles.cache.find(r => r.name === roleData.name);
     if (!existing) {
@@ -93,42 +113,38 @@ client.once('ready', async () => {
     }
   }
 
-  // 2. Criar Categorias e Canais
-  console.log('📌 Criando Categorias e Canais...');
+  // ==========================================
+  // PASSO 3: RECRIAR TODAS AS CATEGORIAS E CANAIS
+  // ==========================================
+  console.log('📁 Recriando Estrutura Oficial...');
   for (const section of STRUCTURE) {
-    let cat = guild.channels.cache.find(c => c.type === ChannelType.GuildCategory && c.name === section.category);
-    if (!cat) {
-      cat = await guild.channels.create({
-        name: section.category,
-        type: ChannelType.GuildCategory
-      });
-      console.log(`  📂 Categoria criada: ${section.category}`);
-    }
+    const cat = await guild.channels.create({
+      name: section.category,
+      type: ChannelType.GuildCategory
+    });
+    console.log(`  📂 Categoria criada: ${section.category}`);
 
     for (const ch of section.channels) {
-      const existingCh = guild.channels.cache.find(c => c.name === ch.name && c.parentId === cat.id);
-      if (!existingCh) {
-        const overwrites = [];
-        if (ch.readOnly) {
-          overwrites.push({
-            id: guild.id,
-            deny: [PermissionsBitField.Flags.SendMessages]
-          });
-        }
-
-        await guild.channels.create({
-          name: ch.name,
-          type: ch.type,
-          parent: cat.id,
-          userLimit: ch.userLimit || undefined,
-          permissionOverwrites: overwrites
+      const overwrites = [];
+      if (ch.readOnly) {
+        overwrites.push({
+          id: guild.id,
+          deny: [PermissionsBitField.Flags.SendMessages] // Modo somente leitura
         });
-        console.log(`    #️⃣ Canal criado: ${ch.name}`);
       }
+
+      await guild.channels.create({
+        name: ch.name,
+        type: ch.type,
+        parent: cat.id,
+        userLimit: ch.userLimit || undefined,
+        permissionOverwrites: overwrites
+      });
+      console.log(`    #️⃣ Canal criado: ${ch.name}`);
     }
   }
 
-  console.log('🎉 TUDO PRONTO! O Servidor do Rafinha está 100% configurado!');
+  console.log('🎉 TUDO PRONTO! O servidor foi completamente limpo e recriado do zero!');
   process.exit(0);
 });
 
