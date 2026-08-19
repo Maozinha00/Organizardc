@@ -1,13 +1,15 @@
+```json
 {
-  "name": "discord-voice-reset",
+  "name": "rafinha-discord-bot",
   "version": "1.0.0",
-  "description": "Script de reset de canais de voz do Discord",
+  "description": "Bot de configuração automática do Discord do Rafinha",
   "main": "setup.js",
   "scripts": {
     "start": "node setup.js"
   },
   "dependencies": {
-    "discord.js": "^14.14.1",
-    "dotenv": "^16.4.5"
+    "discord.js": "^14.21.0",
+    "dotenv": "^17.2.1"
   }
 }
+```
